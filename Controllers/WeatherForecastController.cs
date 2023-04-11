@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,15 @@ namespace intexxxx.Controllers
         {
             _logger = logger;
         }
+
+/*        var userManager = HttpContext.RequestServices.GetService<UserManager<>>();
+
+        var Admin = await userManager.FindByEmailAsync("admin@test.com");
+        var user = await userManager.FindByEmailAsync("user@test.com");
+        var researcher = await userManger.FindByEmailAsync("researcher@test.com");
+        await userManager.AddToRoleAsync(Admin, "Admin");
+        await userManager.AddToRoleAsync(user, "User");
+        await userManager.AddToRoleAsync(researcher, "Researcher");*/
 
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()

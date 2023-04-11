@@ -6,12 +6,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.Net;
 
 namespace intexxxx
 {
@@ -42,6 +43,18 @@ namespace intexxxx
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddHsts(options =>
+            {
+                options.IncludeSubDomains = true;
+                options.MaxAge = TimeSpan.FromDays(60);
+            });
+
+            services.AddHttpsRedirection(options =>
+            {
+                options.RedirectStatusCode = (int)HttpStatusCode.TemporaryRedirect;
+                options.HttpsPort = 5001;
+            });
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -81,12 +94,24 @@ namespace intexxxx
                 app.UseHsts();
             }
 
-            if (genericPrincipal.IsInRole("NetworkUser"))
+            //This also allows us to redirect HTTP to HTTPS in production
+            /*if (!env.IsDevelopment())
+            {
+                services.AddHttpsRedirection(options =>
+                {
+                    options.RedirectStatusCode = (int)HttpStatusCode.PermanentRedirect;
+                    options.HttpsPort = 443;
+                });
+            }*/
+
+            /*if (genericPrincipal.IsInRole("NetworkUser"))
             {
                 Console.WriteLine("User belongs to the NetworkUser role.");
-            }
+            }*/
 
+            //This Redirects Http to Https
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
             app.UseCookiePolicy();
@@ -96,6 +121,18 @@ namespace intexxxx
             app.UseAuthentication();
             app.UseIdentityServer();
             app.UseAuthorization();
+
+            //This sets ups the CSP Header
+            app.Use(async (context, next) => {
+                context.Response.Headers.Add("Content-Security-Policy", 
+                    "default-src 'self'; " +
+                    "script-src 'self'; " +
+                    "style-src 'self' stackpath.bootstrapcdn.com maxcdn.bootstrapcdn.com; " +
+                    "font-src 'self'; img-src 'self'; frame-src 'self'");
+
+                await next();
+            });
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

@@ -9,7 +9,7 @@ import {
   NavLink,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { LoginMenu } from './api-authorization/LoginMenu';
+import { LoginMenu } from '../api-authorization/LoginMenu';
 import './NavMenu.css';
 
 export class NavMenu extends Component {
@@ -62,6 +62,13 @@ export class NavMenu extends Component {
                     Burial List
                   </NavLink>
                 </NavItem>
+
+                <NavItem>
+                  <NavLink tag={Link} className="text-dark" to="/burial-test">
+                    Burial test
+                  </NavLink>
+                </NavItem>
+
                 <NavItem>
                   <NavLink
                     tag={Link}
