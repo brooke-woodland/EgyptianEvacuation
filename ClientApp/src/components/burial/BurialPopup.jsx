@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import './burial.css';
 
-function BurialPopup(props) {
+function BurialPopup({ rowData }) {
   const [showBurial, setShowBurial] = useState(false);
 
   function handleShowPrivacyPolicy() {
@@ -15,15 +15,24 @@ function BurialPopup(props) {
 
   return (
     <>
-      <Button className="btn btn-link" onClick={handleShowPrivacyPolicy}>
-        Privacy Policy
-      </Button>
+      <button className=" btn-link" onClick={handleShowPrivacyPolicy}>
+        {rowData.Title}
+      </button>
       {showBurial && (
         <div className="privacy-policy">
           <div className="privacy-policy-content">
-            <h1>Privacy Policy</h1>
-            <p>This is your privacy policy content.</p>
-            <Button className="btn btn-link" onClick={handleClosePrivacyPolicy}>
+            <h1>{rowData.Id}</h1>
+
+            {rowData.Title}
+            {rowData.Description}
+            {rowData.Year}
+            {rowData.Director}
+            {/* add more Card.Text components as needed for additional fields */}
+
+            <Button
+              className="btn btn-primary"
+              onClick={handleClosePrivacyPolicy}
+            >
               Close
             </Button>
           </div>

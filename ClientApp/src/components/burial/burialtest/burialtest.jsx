@@ -47,10 +47,12 @@ export default function BurialTest() {
           rowsPerPageOptions={[5, 10, 25, 50]}
           totalRecords={movieList.length}
         >
-          <Column field="Title" header="Title" sortable
-          body={(rowData) => (
-            <BurialPopup id={'MovieId'}/>
-          )}></Column>
+          <Column
+            field="Title"
+            header="Title"
+            sortable
+            body={(rowData) => <BurialPopup rowData={rowData} />}
+          ></Column>
           <Column field="Year" header="Year" sortable></Column>
           <Column field="Director" header="Director" sortable></Column>
           <Column field="Rating" header="Rating" sortable></Column>
