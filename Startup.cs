@@ -3,6 +3,7 @@ using intexxxx.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -42,6 +43,22 @@ namespace intexxxx
             services.AddControllersWithViews();
             services.AddRazorPages();
 
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequiredLength = 14;
+                options.Password.RequiredUniqueChars = 5;
+                options.Password.RequireDigit = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireLowercase = true;
+            });
+
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -64,9 +81,15 @@ namespace intexxxx
                 app.UseHsts();
             }
 
+            if (genericPrincipal.IsInRole("NetworkUser"))
+            {
+                Console.WriteLine("User belongs to the NetworkUser role.");
+            }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+            app.UseCookiePolicy();
 
             app.UseRouting();
 

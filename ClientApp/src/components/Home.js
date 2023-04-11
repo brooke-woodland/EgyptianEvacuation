@@ -1,26 +1,65 @@
 import React, { Component } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import mummyGuys from '../img/guyswmummy.JPG';
 
 export class Home extends Component {
   static displayName = Home.name;
 
-  render () {
+  render() {
     return (
-      <div>
-        <h1>Hello, world!</h1>
-        <p>Welcome to your new single-page application, built with:</p>
-        <ul>
-          <li><a href='https://get.asp.net/'>ASP.NET Core</a> and <a href='https://msdn.microsoft.com/en-us/library/67ef8sbd.aspx'>C#</a> for cross-platform server-side code</li>
-          <li><a href='https://facebook.github.io/react/'>React</a> for client-side code</li>
-          <li><a href='http://getbootstrap.com/'>Bootstrap</a> for layout and styling</li>
-        </ul>
-        <p>To help you get started, we have also set up:</p>
-        <ul>
-          <li><strong>Client-side navigation</strong>. For example, click <em>Counter</em> then <em>Back</em> to return here.</li>
-          <li><strong>Development server integration</strong>. In development mode, the development server from <code>create-react-app</code> runs in the background automatically, so your client-side resources are dynamically built on demand and the page refreshes when you modify any file.</li>
-          <li><strong>Efficient production builds</strong>. In production mode, development-time features are disabled, and your <code>dotnet publish</code> configuration produces minified, efficiently bundled JavaScript files.</li>
-        </ul>
-        <p>The <code>ClientApp</code> subdirectory is a standard React application based on the <code>create-react-app</code> template. If you open a command prompt in that directory, you can run <code>npm</code> commands such as <code>npm test</code> or <code>npm install</code>.</p>
-      </div>
+      <>
+        <Container>
+          <Row>
+            <Col className="col-3">
+              <div className="row">
+                <img
+                  src={mummyGuys}
+                  alt="Archaeologists"
+                  className="w-100"
+                  style={{ maxWidth: '500px' }}
+                />
+              </div>
+            </Col>
+            <Col className="col-3"></Col>
+          </Row>
+
+          <div>
+            <h1 className="text-center">BYU Archaeology</h1>
+            <p>
+              Learn more about mummies and how certain aspects of their burial
+              help us learn more about the person!!
+            </p>
+            <br />
+            <p>Learn more about this dig</p>
+            <ul>
+              <li>
+                <a href="https://www-sciencedirect-com.erl.lib.byu.edu/science/article/pii/S2352409X15000188">
+                  Click Here!
+                </a>
+              </li>
+            </ul>
+            <h3>What else does this site offer?</h3>
+            <ul>
+              <li>
+                A dynamic list of all the burials with attached important
+                information regarding each one!
+              </li>
+              <li>
+                An analysis of the mummies using computers to predict gender of
+                mummies based off their attributes
+              </li>
+              <li>
+                An analysis of the mummies to group them together and discover
+                more about them!
+              </li>
+            </ul>
+          </div>
+
+          <div className="row">
+            <div className="col"></div>
+          </div>
+        </Container>
+      </>
     );
   }
 }
