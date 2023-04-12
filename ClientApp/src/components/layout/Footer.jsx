@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import PrivacyPolicy from '../PrivacyPolicy';
 
-export class Footer extends Component {
-  static displayName = Footer.name;
+export class FooterComp extends Component {
+  static displayName = FooterComp.name;
 
   constructor(props) {
     super(props);
@@ -22,22 +22,19 @@ export class Footer extends Component {
 
   render() {
     return (
-      <footer className="bg-light py-2 mt-auto footer">
+      <footer className="bg-secondary py-1 mt-10">
         <Container>
-          <hr />
           <Row>
-            <Col>
+            <Col className="col-6"></Col>
+            <Col className="col-4">
+              <p className="text-right">
+                &copy; 2023 BYU Information Systems Group 2-3.
+              </p>
+            </Col>
+            <Col className="col">
               <p className="text-center">
                 <PrivacyPolicy />
               </p>{' '}
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <p className="text-center">
-                &copy; 2023 BYU Information Systems Group 2-3. All rights
-                reserved.
-              </p>
             </Col>
           </Row>
         </Container>

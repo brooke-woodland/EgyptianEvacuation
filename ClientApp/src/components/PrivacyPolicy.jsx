@@ -15,7 +15,10 @@ function PrivacyPolicy() {
 
   return (
     <>
-      <Button className="btn btn-primary" onClick={handleShowPrivacyPolicy}>
+      <Button
+        className="btn btn-primary btn-sm"
+        onClick={handleShowPrivacyPolicy}
+      >
         Privacy Policy
       </Button>
       {showPrivacyPolicy && (
@@ -24,7 +27,7 @@ function PrivacyPolicy() {
             <h1>Privacy Policy</h1>
             <p>This is your privacy policy content.</p>
             <Button
-              className="btn btn-primary"
+              className="btn btn-primary btn-sm"
               onClick={handleClosePrivacyPolicy}
             >
               Close

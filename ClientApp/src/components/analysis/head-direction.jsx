@@ -1,75 +1,98 @@
-import React, { Component } from 'react';
-import { Form, Dropdown, Button } from 'react-bootstrap';
+import React from 'react';
+import { Form } from 'react-bootstrap';
+import '../../css/form.css';
 
-class Wrapping extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedOption: '',
-      inputValue: '',
-      checkboxValue: false,
-    };
-  }
+function Direction(props) {
+  const params = props.parameters;
+  const handleParamChange = props.handleParamChange;
+  const handleDropdownChange = props.handleDropdownChange;
 
-  handleDropdownChange = (event) => {
-    this.setState({ selectedOption: event.target.value });
-  };
-
-  handleInputChange = (event) => {
-    this.setState({ inputValue: event.target.value });
-  };
-
-  handleCheckboxChange = (event) => {
-    this.setState({ checkboxValue: event.target.checked });
-  };
-
-  handleSubmit = (event) => {
-    event.preventDefault();
-    // handle form submission logic here
-  };
-
-  render() {
-    return (
-      <Form onSubmit={this.handleSubmit}>
+  return (
+    <div className="container py-3">
+      <h3>Head Direction Analysis</h3>
+      <Form>
         <Form.Group>
-          <Form.Label>Dropdown</Form.Label>
-          <Dropdown
-            value={this.state.selectedOption}
-            onChange={this.handleDropdownChange}
-          >
-            <Dropdown.Toggle variant="primary">
-              Select an option
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item value="option1">Option 1</Dropdown.Item>
-              <Dropdown.Item value="option2">Option 2</Dropdown.Item>
-              <Dropdown.Item value="option3">Option 3</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        </Form.Group>
-
-        <Form.Group>
-          <Form.Label>Input</Form.Label>
-          <input
+          <Form.Label>Depth</Form.Label>
+          <Form.Control
             type="text"
-            value={this.state.inputValue}
-            onChange={this.handleInputChange}
+            name="depth"
+            value={params.depth || ''}
+            onChange={handleParamChange}
           />
         </Form.Group>
-
         <Form.Group>
-          <Form.Check
-            type="checkbox"
-            label="Check me out"
-            checked={this.state.checkboxValue}
-            onChange={this.handleCheckboxChange}
+          <Form.Label>Length</Form.Label>
+          <Form.Control
+            name="length"
+            type="text"
+            value={params.length || ''}
+            onChange={handleParamChange}
           />
         </Form.Group>
-
-        <Button type="submit">Submit</Button>
+        <Form.Group>
+          <Form.Label>Wrapping</Form.Label>
+          <select
+            className="form-select form-control w-100"
+            name="wrapping"
+            value={params.wrapping}
+            onChange={handleDropdownChange}
+          >
+            <option value="">Select an option</option>
+            <option value="H">Head only</option>
+            <option>Body only</option>
+            <option value="W">Whole body</option>
+          </select>
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Face Bundles</Form.Label>
+          <select
+            className="form-select form-control"
+            name="facebundles_1"
+            value={params.facebundles}
+            onChange={handleParamChange}
+          >
+            <option value="">Select an option</option>
+            <option value="0">None</option>
+            <option value="1">Some</option>
+            <option value="0">Moderate</option>
+            <option value="0">Lots</option>
+            <option value="0">Tons</option>
+            <option value="0">Unknown</option>
+          </select>
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Age</Form.Label>
+          <select
+            className="form-select form-control"
+            name="adultsubadult_C"
+            value={params.age}
+            onChange={handleParamChange}
+          >
+            <option value="">Select an option</option>
+            <option value="0">Adult</option>
+            <option value="1">Child</option>
+          </select>
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Preservation</Form.Label>
+          <select
+            className="form-select form-control"
+            name="preservation"
+            value={params.preservation}
+            onChange={handleDropdownChange}
+          >
+            <option value="">Select an option</option>
+            <option value="1">Very poor</option>
+            <option value="1">Poor preservation</option>
+            <option value="2">Moderate preservation</option>
+            <option value="3">Well preserved</option>
+            <option value="4">Practically brand new</option>
+            <option value="U">Unknown</option>
+          </select>
+        </Form.Group>
       </Form>
-    );
-  }
+    </div>
+  );
 }
 
-export default Wrapping;
+export default Direction;
