@@ -1,89 +1,150 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, Row, Col, Button } from 'react-bootstrap';
 import Wrapping from './analysis/wrapping';
 import Direction from './analysis/head-direction';
 
 function SupervisedAnalysis() {
   const [activeAnalysisType, setActiveAnalysisType] = useState('wrapping');
-  const handleAnalysis = (analysisType) => {
-    setActiveAnalysisType(analysisType);
-  };
-
+  const [prediction, setPrediction] = useState('');
+  const [sendRequest, setSendRequest] = useState(false);
+  const [endpoint, setEndpoint] = useState('predict-head-direction');
   const [parameters, setParameters] = useState({
     depth: 0,
     length: 0,
     wrapping_H: 0,
     wrapping_W: 0,
-    facebundles_1: 0,
     adultsubadult_C: 0,
+    facebundles_1: 0,
     preservation_1: 0,
     preservation_2: 0,
     preservation_3: 0,
     preservation_4: 0,
     preservation_U: 0,
   });
-  var prediction = '';
+  const [wrapParameters, setWrapParameters] = useState({
+    preservation_1: 0,
+    preservation_2: 0,
+    preservation_3: 0,
+    preservation_4: 0,
+    samplescollected_true: 0,
+  });
 
-  const handleOnClick = () => {
-    let message = 'Selected parameters:\n';
-    for (const key in parameters) {
-      message += `${key}: ${parameters[key]}\n`;
-    }
-    alert(message); // create an alert with selected items
-
-    // The Beautiful API call:
-    const axios = require('axios');
-    let data = JSON.stringify(parameters);
-
-    let config = {
-      method: 'post',
-      maxBodyLength: Infinity,
-      url: 'http://54.219.174.191/predict',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      data: data,
-    };
-
-    axios
-      .request(config)
-      .then((response) => {
-        console.log(JSON.stringify(response.data));
-        prediction = response.data.prediction;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    setParameters({
-      depth: 0,
-      length: 0,
-      wrapping_H: 0,
-      wrapping_W: 0,
-      facebundles_1: 0,
-      adultsubadult_C: 0,
-      preservation_1: 0,
-      preservation_2: 0,
-      preservation_3: 0,
-      preservation_4: 0,
-      preservation_U: 0,
-    });
+  const handleAnalysis = (analysisType) => {
+    setActiveAnalysisType(analysisType);
+    setEndpoint('predict-' + analysisType);
   };
 
+  useEffect(() => {
+    const sendRequestToServer = async () => {
+      console.log(JSON.stringify(parameters));
+
+      var myHeaders = new Headers();
+      myHeaders.append('Content-Type', 'application/json');
+
+      if (activeAnalysisType === 'head-direction') {
+        var raw = JSON.stringify({
+          depth: parameters.depth,
+          length: parameters.length,
+          wrapping_H: parameters.wrapping_H,
+          wrapping_W: parameters.wrapping_W,
+          adultsubadult_C: parameters.adultsubadult_C,
+          facebundles_1: parameters.facebundles_1,
+          preservation_1: parameters.preservation_1,
+          preservation_2: parameters.preservation_2,
+          preservation_3: parameters.preservation_3,
+          preservation_4: parameters.preservation_4,
+          preservation_U: parameters.preservation_U,
+        });
+      } else {
+        raw = JSON.stringify({
+          preservation_1: wrapParameters.preservation_1,
+          preservation_2: wrapParameters.preservation_2,
+          preservation_3: wrapParameters.preservation_3,
+          preservation_4: wrapParameters.preservation_4,
+          samplescollected_true: wrapParameters.samplescollected_true,
+        });
+      }
+      console.log('raw: ' + raw);
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow',
+        //referer: 'no-referrer',
+      };
+
+      const url = 'http://54.193.185.178/';
+      const fullEndpoint = url + endpoint;
+
+      fetch(fullEndpoint, requestOptions)
+        .then((response) => response.text())
+        .then((result) => {
+          console.log(result);
+          setPrediction(result);
+        })
+        .catch((error) => console.log('error', error));
+
+      setParameters((prevState) => ({
+        ...prevState,
+        depth: 0,
+        length: 0,
+        wrapping_H: 0,
+        wrapping_W: 0,
+        adultsubadult_C: 0,
+        facebundles_1: 0,
+        preservation_1: 0,
+        preservation_2: 0,
+        preservation_3: 0,
+        preservation_4: 0,
+        preservation_U: 0,
+      }));
+      setWrapParameters((prevState) => ({
+        ...prevState,
+        preservation_1: 0,
+        preservation_2: 0,
+        preservation_3: 0,
+        preservation_4: 0,
+        samplescollected_true: 0,
+      }));
+
+      setSendRequest(false);
+    };
+
+    if (sendRequest) {
+      sendRequestToServer();
+    }
+  }, [
+    sendRequest,
+    parameters,
+    prediction,
+    endpoint,
+    wrapParameters,
+    activeAnalysisType,
+  ]);
+
+  // maybe add to package.json
+  // "proxy": "http://54.193.185.178/",
+
+  const handleOnClick = () => {
+    // create an alert with selected items
+    setSendRequest(true);
+  };
   const handleParamChange = (event) => {
     const { name, value } = event.target;
     setParameters((prevState) => ({
       ...prevState,
-      [name]: value,
+      [name]: parseInt(value),
     }));
   };
   const handleDropdownChange = (event) => {
     const { name, value } = event.target;
     const fullName = name + '_' + value;
-    setParameters((prevState) => ({
-      ...prevState,
-      [fullName]: 1,
-    }));
+    if (parameters.hasOwnProperty(fullName)) {
+      setParameters((prevState) => ({
+        ...prevState,
+        [fullName]: 1,
+      }));
+    }
   };
 
   return (
@@ -106,13 +167,13 @@ function SupervisedAnalysis() {
               <button
                 type="button"
                 className={`btn flex-grow-1 ${
-                  activeAnalysisType === 'direction'
+                  activeAnalysisType === 'head-direction'
                     ? 'btn-primary'
                     : 'btn-secondary'
                 }`}
-                onClick={() => handleAnalysis('direction')}
+                onClick={() => handleAnalysis('head-direction')}
               >
-                Direction Analysis
+                Head Direction Analysis
               </button>
             </Card.Header>
 

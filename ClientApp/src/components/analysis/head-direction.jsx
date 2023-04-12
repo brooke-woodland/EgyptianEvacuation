@@ -82,7 +82,7 @@ function Direction(props) {
             onChange={handleDropdownChange}
           >
             <option value="">Select an option</option>
-            <option value="1">Very poor</option>
+            <option value="0">Very poor</option>
             <option value="1">Poor preservation</option>
             <option value="2">Moderate preservation</option>
             <option value="3">Well preserved</option>
