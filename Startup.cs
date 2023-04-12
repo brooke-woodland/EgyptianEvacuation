@@ -126,8 +126,8 @@ namespace intexxxx
             app.Use(async (context, next) => {
                 context.Response.Headers.Add("Content-Security-Policy", 
                     "default-src 'self'; " +
-                    "script-src 'self'; " +
-                    "style-src 'self' stackpath.bootstrapcdn.com maxcdn.bootstrapcdn.com; " +
+                    "script-src 'self' cdn.jsdelivr.net; " +
+                    "style-src 'self' stackpath.bootstrapcdn.com maxcdn.bootstrapcdn.com 'unsafe-inline'; " +
                     "font-src 'self'; img-src 'self'; frame-src 'self'");
 
                 await next();

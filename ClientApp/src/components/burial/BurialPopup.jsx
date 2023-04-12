@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Card } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import './burial.css';
 
 function BurialPopup({ rowData }) {
