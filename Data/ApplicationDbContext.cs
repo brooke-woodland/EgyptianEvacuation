@@ -13,8 +13,7 @@ namespace intexxxx.Data
 {
     public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
     {
-        //private readonly RoleManager<IdentityRole> _roleManager;
-        public ApplicationDbContext(/*RoleManager<IdentityRole> roleManager,*/
+        public ApplicationDbContext(
             DbContextOptions options,
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         { }

@@ -33,7 +33,19 @@ namespace intexxxx
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddCors(options => 
+                {
+                    options.AddPolicy("CorsPolicy", builder =>
+                        {
+                            builder.WithOrigins("https://localhost:44363", "http://localhost:3000")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+    
+                        });
+                    });
 
             services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
@@ -117,7 +129,7 @@ namespace intexxxx
             app.UseCookiePolicy();
 
             app.UseRouting();
-
+            app.UseCors("CorsPolicy");
             app.UseAuthentication();
             app.UseIdentityServer();
             app.UseAuthorization();
@@ -126,9 +138,10 @@ namespace intexxxx
             app.Use(async (context, next) => {
                 context.Response.Headers.Add("Content-Security-Policy", 
                     "default-src 'self'; " +
+                    "connect-src 'self' https://54.193.185.178/ wss://localhost:2346/ws unsafe-inline; " +
                     "script-src 'self' cdn.jsdelivr.net; " +
                     "style-src 'self' stackpath.bootstrapcdn.com maxcdn.bootstrapcdn.com 'unsafe-inline'; " +
-                    "font-src 'self'; img-src 'self'; frame-src 'self'");
+                    "font-src 'self' maxcdn.bootstrapcdn.com; img-src 'self'; frame-src 'self'");
 
                 await next();
             });

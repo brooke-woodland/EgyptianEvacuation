@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, Row, Col, Button } from 'react-bootstrap';
 import Wrapping from './analysis/wrapping';
 import Direction from './analysis/head-direction';
+import '../css/style.css';
 
 function SupervisedAnalysis() {
   const [activeAnalysisType, setActiveAnalysisType] = useState('wrapping');
@@ -151,8 +152,8 @@ function SupervisedAnalysis() {
     <div className="mb-10">
       <Row className="mb-10">
         <Col className="col-6">
-          <Card className="p-20 mb-10 shadow rounded">
-            <Card.Header className="d-flex">
+          <Card className="p-20 mb-10 shadow rounded-lg">
+            <Card.Header className="d-flex bg-byu">
               <button
                 type="button"
                 className={`btn flex-grow-1 mx-2 ${
@@ -190,7 +191,7 @@ function SupervisedAnalysis() {
                 handleDropdownChange={handleDropdownChange}
               />
             )}
-            <Card.Footer>
+            <Card.Footer className="bg-byu">
               <Button onClick={handleOnClick} className="btn-block">
                 Perform Analysis
               </Button>
@@ -198,8 +199,10 @@ function SupervisedAnalysis() {
           </Card>
         </Col>
         <Col className="col-4 d-flex align-items-center">
-          <Card className="p-20 shadow rounded">
-            <Card.Header>Supervised Analysis Results:</Card.Header>
+          <Card className="p-20 shadow rounded-lg">
+            <Card.Header className="bg-byu text-light">
+              Supervised Analysis Results:
+            </Card.Header>
             <div className="p-4">
               {prediction ||
                 'Please select an analysis type and enter burial details. Then click "Perform Analysis" to see the results.'}

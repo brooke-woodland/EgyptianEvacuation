@@ -9,6 +9,7 @@ import { UnsupervisedAnalysis } from './components/UnsupervisedAnalysis';
 import AuthorizeRoute from './components/api-authorization/AuthorizeRoute';
 import ApiAuthorizationRoutes from './components/api-authorization/ApiAuthorizationRoutes';
 import { ApplicationPaths } from './components/api-authorization/ApiAuthorizationConstants';
+import UserRoles from './components/api-authorization/UserRoles';
 
 import './custom.css';
 
@@ -26,6 +27,7 @@ export default class App extends Component {
           render={() => <SupervisedAnalysis />}
         />
         <Route path="/unsupervised-analysis" component={UnsupervisedAnalysis} />
+        <Route path="/roles" component={UserRoles} />
         <Route
           path={ApplicationPaths.ApiAuthorizationPrefix}
           component={ApiAuthorizationRoutes}

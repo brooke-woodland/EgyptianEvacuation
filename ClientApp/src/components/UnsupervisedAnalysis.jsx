@@ -67,7 +67,7 @@ export class UnsupervisedAnalysis extends Component {
         <img
           src={length}
           alt="length"
-          className="w-100 col-9"
+          className="w-100 col-9 mt-5"
           style={{ maxWidth: '500px' }}
         />
         <img
