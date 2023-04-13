@@ -73,7 +73,7 @@ function SupervisedAnalysis() {
         //referer: 'no-referrer',
       };
 
-      const url = 'https://54.193.185.178/';
+      const url = 'https://mummysupervised23.is404.net/';
       const fullEndpoint = url + endpoint;
 
       fetch(fullEndpoint, requestOptions)
@@ -123,7 +123,7 @@ function SupervisedAnalysis() {
   ]);
 
   // maybe add to package.json
-  // "proxy": "http://54.193.185.178/",
+  // "proxy": "httpS://mummysupervised23.is404.net/",
 
   const handleOnClick = () => {
     // create an alert with selected items

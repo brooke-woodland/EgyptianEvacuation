@@ -131,11 +131,11 @@ namespace intexxxx
 
             //This sets ups the CSP Header
             app.Use(async (context, next) => {
-                context.Response.Headers.Add("Content-Security-Policy", 
-                    "default-src 'self'; " +
-                    "connect-src https://54.193.185.178; " +
+                context.Response.Headers.Add("Content-Security-Policy",
+                    "default-src 'self'  https://maxcdn.bootstrapcdn.com/* http://www.w3.org/2000/svg https://stackpath.bootstrapcdn.com; " +
+                    "connect-src 'self' https://mummysupervised23.is404.net/predict-wrapping https://mummysupervised23.is404.net/predict-head-direction ; " +
                     "script-src 'self' cdn.jsdelivr.net; " +
-                    "style-src 'self' stackpath.bootstrapcdn.com maxcdn.bootstrapcdn.com 'unsafe-inline'; " +
+                    "style-src 'self'  https://maxcdn.bootstrapcdn.com/* http://www.w3.org/2000/svg 'unsafe-inline'; " +
                     "font-src 'self'; img-src 'self'; frame-src 'self'");
 
                 await next();
