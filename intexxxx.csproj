@@ -8,6 +8,9 @@
     <SpaRoot>ClientApp\</SpaRoot>
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
     <AssemblyName>intexxxx</AssemblyName>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>newkeyfile.pfx</AssemblyOriginatorKeyFile>
+    <UserSecretsId>25ad2c36-4ee2-4f9d-8eb8-a2bc5cfdd8aa</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -33,6 +36,13 @@
   <ItemGroup>
     <None Remove="Controllers\NewFile.txt" />
     <None Remove="Pages\Shared\NewFile.txt" />
+    <None Remove="powershellcert.pfx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="powershellcert.pfx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
@@ -53,7 +63,7 @@
     <!-- Include the newly-built files in the publish output -->
     <ItemGroup>
       <DistFiles Include="$(SpaRoot)build\**" />
-      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+      <ResolvedFileToPublish Include="@(DistFiles-&gt;'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
         <RelativePath>%(DistFiles.Identity)</RelativePath>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>

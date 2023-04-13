@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Net;
+using System.Security.Cryptography;
 
 namespace intexxxx
 {
@@ -35,6 +36,7 @@ namespace intexxxx
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
 
             services.AddCors(options => 
                 {
@@ -94,6 +96,9 @@ namespace intexxxx
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            var env_status = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            Console.WriteLine($"ASPNETCORE_ENVIRONMENT={env_status}");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -137,6 +142,7 @@ namespace intexxxx
             //This sets ups the CSP Header
             app.Use(async (context, next) => {
 
+
                 context.Response.Headers.Add("Content-Security-Policy", 
                     "default-src 'self'; " +
                     "connect-src 'self' https://mummysupervised23.is404.net/predict-wrapping https://mummysupervised23.is404.net/predict-head-direction wss://localhost:2346/ws unsafe-inline; " +
@@ -155,10 +161,15 @@ namespace intexxxx
                 endpoints.MapRazorPages();
             });
 
+            env_status = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            Console.WriteLine($"ASPNETCORE_ENVIRONMENT={env_status} right before UseSpa");
             app.UseSpa(spa =>
             {
+
                 spa.Options.SourcePath = "ClientApp";
+
                 //spa.UseReactDevelopmentServer(npmScript: "start");
+
                 if (env.IsDevelopment())
                 {
                     spa.UseReactDevelopmentServer(npmScript: "start");
