@@ -73,7 +73,7 @@ function SupervisedAnalysis() {
         //referer: 'no-referrer',
       };
 
-      const url = 'http://54.193.185.178/';
+      const url = 'https://54.193.185.178/';
       const fullEndpoint = url + endpoint;
 
       fetch(fullEndpoint, requestOptions)
