@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Net;
+using System.Security.Cryptography;
 
 namespace intexxxx
 {
@@ -34,6 +35,9 @@ namespace intexxxx
 
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+           
+            // On your startup
 
             services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
@@ -82,6 +86,9 @@ namespace intexxxx
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            var env_status = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            Console.WriteLine($"ASPNETCORE_ENVIRONMENT={env_status}");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -110,7 +117,7 @@ namespace intexxxx
             }*/
 
             //This Redirects Http to Https
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
@@ -126,6 +133,7 @@ namespace intexxxx
             app.Use(async (context, next) => {
                 context.Response.Headers.Add("Content-Security-Policy", 
                     "default-src 'self'; " +
+                    "connect-src https://54.193.185.178; " +
                     "script-src 'self' cdn.jsdelivr.net; " +
                     "style-src 'self' stackpath.bootstrapcdn.com maxcdn.bootstrapcdn.com 'unsafe-inline'; " +
                     "font-src 'self'; img-src 'self'; frame-src 'self'");
@@ -141,10 +149,13 @@ namespace intexxxx
                 endpoints.MapRazorPages();
             });
 
+            env_status = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            Console.WriteLine($"ASPNETCORE_ENVIRONMENT={env_status} right before UseSpa");
             app.UseSpa(spa =>
             {
+
                 spa.Options.SourcePath = "ClientApp";
-                spa.UseReactDevelopmentServer(npmScript: "start");
+
                 if (env.IsDevelopment())
                 {
                     spa.UseReactDevelopmentServer(npmScript: "start");
