@@ -1,0 +1,1 @@
+sudo certbot -n -d egyptbeanstalk1-env.eba-s2sumtpz.us-east-1.elasticbeanstalk.com --nginx --agree-tos --email tws2000@byu.edu
