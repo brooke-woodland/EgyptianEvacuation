@@ -122,7 +122,7 @@ namespace intexxxx
             }*/
 
             //This Redirects Http to Https
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
@@ -136,9 +136,10 @@ namespace intexxxx
 
             //This sets ups the CSP Header
             app.Use(async (context, next) => {
+
                 context.Response.Headers.Add("Content-Security-Policy", 
                     "default-src 'self'; " +
-                    "connect-src 'self' https://54.193.185.178/ wss://localhost:2346/ws unsafe-inline; " +
+                    "connect-src 'self' https://mummysupervised23.is404.net/predict-wrapping https://mummysupervised23.is404.net/predict-head-direction wss://localhost:2346/ws unsafe-inline; " +
                     "script-src 'self' cdn.jsdelivr.net; " +
                     "style-src 'self' stackpath.bootstrapcdn.com maxcdn.bootstrapcdn.com 'unsafe-inline'; " +
                     "font-src 'self' maxcdn.bootstrapcdn.com; img-src 'self'; frame-src 'self'");
@@ -157,7 +158,7 @@ namespace intexxxx
             app.UseSpa(spa =>
             {
                 spa.Options.SourcePath = "ClientApp";
-                spa.UseReactDevelopmentServer(npmScript: "start");
+                //spa.UseReactDevelopmentServer(npmScript: "start");
                 if (env.IsDevelopment())
                 {
                     spa.UseReactDevelopmentServer(npmScript: "start");
