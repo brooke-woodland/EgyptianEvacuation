@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import PrivacyPolicy from '../PrivacyPolicy';
+import '../../css/style.css';
 
 export class FooterComp extends Component {
   static displayName = FooterComp.name;
@@ -22,12 +23,12 @@ export class FooterComp extends Component {
 
   render() {
     return (
-      <footer className="bg-secondary py-1 mt-10">
-        <Container>
+      <footer className="bg-byu py-1 mt-10">
+        <Container className="pt-3">
           <Row>
             <Col className="col-6"></Col>
             <Col className="col-4">
-              <p className="text-right">
+              <p className="text-right text-light">
                 &copy; 2023 BYU Information Systems Group 2-3.
               </p>
             </Col>

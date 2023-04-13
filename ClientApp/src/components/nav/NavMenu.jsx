@@ -34,12 +34,12 @@ export class NavMenu extends Component {
     return (
       <header>
         <Navbar
-          className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3"
-          light
+          className="navbar-expand-sm navbar-toggleable-sm bg-byu border-bottom box-shadow mb-3"
+          dark
         >
           <Container>
             <NavbarBrand tag={Link} to="/">
-              INTEX-2-3
+              Fag el-Gamous Research & Analysis
             </NavbarBrand>
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
             <Collapse
@@ -49,14 +49,14 @@ export class NavMenu extends Component {
             >
               <ul className="navbar-nav flex-grow">
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/">
+                  <NavLink tag={Link} className="text-light" to="/">
                     Home
                   </NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink
                     tag={Link}
-                    className="text-dark"
+                    className="text-light"
                     to="/burial-summary"
                   >
                     Burial List
@@ -64,7 +64,7 @@ export class NavMenu extends Component {
                 </NavItem>
 
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/burial-test">
+                  <NavLink tag={Link} className="text-light" to="/burial-test">
                     Burial test
                   </NavLink>
                 </NavItem>
@@ -72,7 +72,7 @@ export class NavMenu extends Component {
                 <NavItem>
                   <NavLink
                     tag={Link}
-                    className="text-dark"
+                    className="text-light"
                     to="/supervised-analysis"
                   >
                     Supervised Analysis
@@ -81,10 +81,15 @@ export class NavMenu extends Component {
                 <NavItem>
                   <NavLink
                     tag={Link}
-                    className="text-dark"
+                    className="text-light"
                     to="/unsupervised-analysis"
                   >
                     Unsupervised Analysis
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={Link} className="text-light" to="/roles">
+                    Roles
                   </NavLink>
                 </NavItem>
                 <LoginMenu></LoginMenu>

@@ -34,6 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Controllers\NewFile.txt" />
     <None Remove="Pages\Shared\NewFile.txt" />
     <None Remove="powershellcert.pfx" />
   </ItemGroup>

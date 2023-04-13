@@ -8,5 +8,7 @@ namespace intexxxx.Models
 {
     public class ApplicationUser : IdentityUser
     {
+        public int? RoleID { get; set; }
+        public string RoleName { get; set; }
     }
 }

@@ -34,10 +34,20 @@ namespace intexxxx
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-           
-            // On your startup
+
+            services.AddCors(options => 
+                {
+                    options.AddPolicy("CorsPolicy", builder =>
+                        {
+                            builder.WithOrigins("https://localhost:44363", "http://localhost:3000")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+    
+                        });
+                    });
 
             services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
@@ -124,19 +134,21 @@ namespace intexxxx
             app.UseCookiePolicy();
 
             app.UseRouting();
-
+            app.UseCors("CorsPolicy");
             app.UseAuthentication();
             app.UseIdentityServer();
             app.UseAuthorization();
 
             //This sets ups the CSP Header
             app.Use(async (context, next) => {
-                context.Response.Headers.Add("Content-Security-Policy",
-                    "default-src 'self'  https://maxcdn.bootstrapcdn.com/* http://www.w3.org/2000/svg https://stackpath.bootstrapcdn.com; " +
-                    "connect-src 'self' https://mummysupervised23.is404.net/predict-wrapping https://mummysupervised23.is404.net/predict-head-direction ; " +
+
+
+                context.Response.Headers.Add("Content-Security-Policy", 
+                    "default-src 'self'; " +
+                    "connect-src 'self' https://mummysupervised23.is404.net/predict-wrapping https://mummysupervised23.is404.net/predict-head-direction wss://localhost:2346/ws unsafe-inline; " +
                     "script-src 'self' cdn.jsdelivr.net; " +
-                    "style-src 'self'  https://maxcdn.bootstrapcdn.com/* http://www.w3.org/2000/svg 'unsafe-inline'; " +
-                    "font-src 'self'; img-src 'self'; frame-src 'self'");
+                    "style-src 'self' stackpath.bootstrapcdn.com maxcdn.bootstrapcdn.com 'unsafe-inline'; " +
+                    "font-src 'self' maxcdn.bootstrapcdn.com; img-src 'self'; frame-src 'self'");
 
                 await next();
             });
@@ -155,6 +167,8 @@ namespace intexxxx
             {
 
                 spa.Options.SourcePath = "ClientApp";
+
+                //spa.UseReactDevelopmentServer(npmScript: "start");
 
                 if (env.IsDevelopment())
                 {
