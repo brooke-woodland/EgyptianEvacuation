@@ -15,7 +15,7 @@ export class Home extends Component {
                 <img
                   src={mummyGuys}
                   alt="Archaeologists"
-                  className="w-100"
+                  className="w-100 center"
                   style={{ maxWidth: '500px' }}
                 />
               </div>
