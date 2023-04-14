@@ -86,7 +86,7 @@ function Direction(props) {
             <option value="1">Poor preservation</option>
             <option value="2">Moderate preservation</option>
             <option value="3">Well preserved</option>
-            <option value="4">Practically brand new</option>
+            <option value="4">Pristine</option>
             <option value="U">Unknown</option>
           </select>
         </Form.Group>

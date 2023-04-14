@@ -18,21 +18,20 @@ export default class App extends Component {
 
   render() {
     return (
-      <Layout>
-        <Route exact path="/" component={Home} />
-        <AuthorizeRoute path="/burial-summary" component={BurialSummary} />
-        <Route path="/burial-test" render={() => <BurialTest />} />
-        <Route
-          path="/supervised-analysis"
-          render={() => <SupervisedAnalysis />}
-        />
-        <Route path="/unsupervised-analysis" component={UnsupervisedAnalysis} />
-        <Route path="/roles" component={UserRoles} />
-        <Route
-          path={ApplicationPaths.ApiAuthorizationPrefix}
-          component={ApiAuthorizationRoutes}
-        />
-      </Layout>
+        <Layout>
+            <Route exact path="/" component={Home} />
+            <AuthorizeRoute path="/burial-summary" component={BurialSummary} />
+            <Route path="/burial-test" render={() => <BurialTest />} />
+            <Route
+                path="/supervised-analysis"
+                render={() => <SupervisedAnalysis />}
+            />
+            <Route path="/unsupervised-analysis" component={UnsupervisedAnalysis} />
+            <Route path="/roles" component={UserRoles} />
+            <Route
+                path={ApplicationPaths.ApiAuthorizationPrefix}
+                component={ApiAuthorizationRoutes}/>
+        </Layout>
     );
   }
 }
