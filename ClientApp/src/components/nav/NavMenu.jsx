@@ -59,13 +59,7 @@ export class NavMenu extends Component {
                     className="text-light"
                     to="/burial-summary"
                   >
-                    Burial List
-                  </NavLink>
-                </NavItem>
-
-                <NavItem>
-                  <NavLink tag={Link} className="text-light" to="/burial-test">
-                    Burial test
+                    Summary
                   </NavLink>
                 </NavItem>
 
@@ -75,7 +69,7 @@ export class NavMenu extends Component {
                     className="text-light"
                     to="/supervised-analysis"
                   >
-                    Supervised Analysis
+                    Supervised
                   </NavLink>
                 </NavItem>
                 <NavItem>
@@ -84,7 +78,7 @@ export class NavMenu extends Component {
                     className="text-light"
                     to="/unsupervised-analysis"
                   >
-                    Unsupervised Analysis
+                    Unsupervised
                   </NavLink>
                 </NavItem>
                 <NavItem>

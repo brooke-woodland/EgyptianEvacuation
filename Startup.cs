@@ -27,11 +27,15 @@ namespace intexxxx
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services) //IWebHostEnvironment env
         {
+            var authConnectString = Configuration["ConnectionStrings:AuthLink"];
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                options.UseNpgsql(authConnectString));
+
+            var conectionString = Configuration["ConnectionStrings:DefaultConnection"];
+            services.AddDbContext<postgresContext>(options =>
+                  options.UseNpgsql(conectionString));
 
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
@@ -91,6 +95,15 @@ namespace intexxxx
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+            //This also allows us to redirect HTTP to HTTPS in production
+            /*
+            services.AddHttpsRedirection(options =>
+            {
+                options.RedirectStatusCode = (int)HttpStatusCode.PermanentRedirect;
+                options.HttpsPort = 443;
+            });
+            */
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -108,16 +121,6 @@ namespace intexxxx
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
-            //This also allows us to redirect HTTP to HTTPS in production
-            //if (!env.IsDevelopment())
-            //{
-            //    services.AddHttpsRedirection(options =>
-            //    {
-            //        options.RedirectStatusCode = (int)HttpStatusCode.PermanentRedirect;
-            //        options.HttpsPort = 443;
-            //    });
-            //}
 
             /*if (genericPrincipal.IsInRole("NetworkUser"))
             {
@@ -144,8 +147,8 @@ namespace intexxxx
 
                 context.Response.Headers.Add("Content-Security-Policy",
                     "default-src 'self'; " +
-                    "connect-src 'self' mummysupervised23.is404.net/predict-wrapping mummysupervised23.is404.net/predict-head-direction wss://localhost:2346/ws unsafe-inline mummy23.is404.net/.well-known/openid-configuration localhost:5001/approles/GetRoles' ; " +
-                    "script-src 'self' cdn.jsdelivr.net cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js 'unsafe-inline' ; " +
+                    "connect-src 'self' cdn.jsdelivr.net http://mummy23.is404.net/.well-known/openid-configuration https://is404.net mummysupervised23.is404.net/predict-wrapping mummysupervised23.is404.net/predict-head-direction wss://localhost:2346/ws unsafe-inline mummy23.is404.net/.well-known/openid-configuration localhost:5001/approles/GetRoles' ; " +
+                    "script-src 'self' 'sha256-ZT3q7lL9GXNGhPTB1Vvrvds2xw/kOV0zoeok2tiV23I=' 'sha256-FDyPg8CqqIpPAfGVKx1YeKduyLs0ghNYWII21wL+7HM=' cdn.jsdelivr.net cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js 'unsafe-inline' ; " +
                     "style-src 'self' stackpath.bootstrapcdn.com maxcdn.bootstrapcdn.com 'unsafe-inline'; " +
                     "font-src 'self' maxcdn.bootstrapcdn.com; img-src 'self'; frame-src 'self'");
 

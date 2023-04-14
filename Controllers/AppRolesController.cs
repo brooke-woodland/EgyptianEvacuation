@@ -11,7 +11,7 @@ using intexxxx.Models;
 namespace intexxxx.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/role-data")]
     public class AppRolesController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -21,7 +21,7 @@ namespace intexxxx.Controllers
             _userManager = userManager;
         }
 
-        [Route("[action]")]
+        //[Route("[action]")]
         [HttpGet]
         public IQueryable<ApplicationUser> GetRoles()
         {
@@ -29,6 +29,24 @@ namespace intexxxx.Controllers
             return x;
         }
 
+        /*
+        [HttpPost]
+        public async Task<ActionResult<ApplicationUser>> AddBurialData(ApplicationUser newRoleData)
+        {
+            var userUpdate = new ApplicationUser
+            {
+                Id = newRoleData.Id,
+                UserName = newRoleData.UserName,
+                RoleName = newRoleData.RoleName
+            };
+
+            _userManager.UserManager<ApplicationUser>.Update(userUpdate);
+
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetBurialData), new { id = burialMain.Id }, newBurialData);
+        }
+        */
     }
 
 }

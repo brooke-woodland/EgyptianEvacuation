@@ -8,7 +8,7 @@ function SupervisedAnalysis() {
     const [activeAnalysisType, setActiveAnalysisType] = useState('wrapping');
     const [prediction, setPrediction] = useState('');
     const [sendRequest, setSendRequest] = useState(false);
-    const [endpoint, setEndpoint] = useState('predict-head-direction');
+    const [endpoint, setEndpoint] = useState('predict-wrapping');
     const [parameters, setParameters] = useState({
         depth: 0,
         length: 0,

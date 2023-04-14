@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/static/css/main.42b300e8.css",
+    "main.js": "/static/js/main.2d854eea.js",
+    "static/media/guyswmummy.JPG": "/static/media/guyswmummy.125f0aa90f267216cafe.JPG",
+    "static/media/primeicons.svg": "/static/media/primeicons.e1441b135b3ca9ad643c.svg",
+    "static/media/primeicons.eot": "/static/media/primeicons.d44157bdfa026dc877af.eot",
+    "static/media/primeicons.woff": "/static/media/primeicons.10d3152104f2208ac82a.woff",
+    "static/media/primeicons.ttf": "/static/media/primeicons.ea5358601d0a3fd6670b.ttf",
+    "static/media/West_To_Head.png": "/static/media/West_To_Head.cd1eb89222fb83bbde78.png",
+    "static/media/South_To_Head.png": "/static/media/South_To_Head.23612699cd81ebbc7c9d.png",
+    "static/media/South_To_Feet.png": "/static/media/South_To_Feet.39c7275da7449ca2b753.png",
+    "static/media/West_to_Feet.png": "/static/media/West_to_Feet.f575a46f9b34b6b2fcd4.png",
+    "static/media/Length.png": "/static/media/Length.d0cedd7617706f166c2b.png",
+    "static/media/primeicons.woff2": "/static/media/primeicons.78172950b335ccdb94e2.woff2",
+    "static/media/Preservation.png": "/static/media/Preservation.748bdcfce265e7f18254.png",
+    "static/media/Age_at_Death.png": "/static/media/Age_at_Death.d0dd66ccbb2e185423c0.png",
+    "static/media/Hair_Color.png": "/static/media/Hair_Color.4c2dcf75927db1f26eb1.png",
+    "static/media/Face_Bundles.png": "/static/media/Face_Bundles.491b7609aeda92bb7016.png",
+    "static/media/Sex.png": "/static/media/Sex.aa71a51f8a5123aa83e6.png",
+    "static/media/color.png": "/static/media/color.6441e63a57ccc5105bad.png",
+    "index.html": "/index.html",
+    "main.42b300e8.css.map": "/static/css/main.42b300e8.css.map",
+    "main.2d854eea.js.map": "/static/js/main.2d854eea.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.42b300e8.css",
+    "static/js/main.2d854eea.js"
+  ]
+}
